@@ -1,0 +1,46 @@
+/* universal selector * that gives each element default values */
+/* include before and after selectors for defaults */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  /* border margin and paddings are inherited*/
+  box-sizing: inherit;
+}
+
+/* global setting for font-size -- use html selector */
+html {
+  /* set to a percentage so that user can change sizes (zoom and zoom out) */
+  /* the default for most browsers is 16px -- divide by 10 * 100 gives us 62.5% */
+  font-size: 62.5%;
+
+  /* @include respond(tab-land) {
+    font-size: 56.25%; //1 rem = 9px, 9/16 = 56.25%
+  }
+
+  @include respond(tab-port) {
+    font-size: 50%; //1 rem = 8px, 8/16 = 50%
+  }
+
+  @include respond(big-desktop) {
+    font-size: 75%; //1 rem = 12px, 12/16 = 75%
+  } */
+}
+/* using inheritance to keep fonts consistent */
+body {
+  /* Google font Lato already included */
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /* font-size: 16px; */
+  line-height: 1.7;
+  color: #000;
+  /* applying padding around the body */
+  padding: 3rem;
+  /* border margin and paddings no longer apply to total width and height of boxes*/
+  box-sizing: border-box;
+
+  /* @include respond(tab-port) {
+    padding: 0;
+  } */
+}
