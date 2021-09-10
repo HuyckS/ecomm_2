@@ -7,7 +7,7 @@ import bcrypt
 
 
 def index(request):
-    return render(request, 'login.html')
+    return render(request, 'index.html')
 
 
 # def register(request):
