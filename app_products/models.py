@@ -41,7 +41,7 @@ class UserManager(models.Manager):
 class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    username = models.CharsField(max_length=255)
+    username = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
     pw_hash = models.CharField(max_length=255)
     objects = UserManager()
