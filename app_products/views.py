@@ -3,110 +3,215 @@ from .models import *
 from django.contrib import messages
 import bcrypt
 
+#--------Helper Functions------
+
+def checkCustomer(request):
+    if "user_id" not in request.session:
+        customer = 0
+        customer_name = 'customer'
+    else:
+        id_num = request.session["user_id"]
+        customer = User.objects.get(id=id_num)
+        customer_name = customer.first_name
+    context = {
+        'user_id' : customer,
+        'customer': customer_name,
+    }
+    return context
+
 # ----------LOGIN--------------
 
 
 def index(request):
-    return render(request, 'index.html')
+    context = checkCustomer(request)
+    return render(request, 'index.html', context)
+
+def signIn(request):
+    return render(request, 'login.html')
+    
+def register(request):
+    errors = User.objects.validate(request.POST)
+
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value, extra_tags=key)
+        return render(request, 'login.html')
+
+    input_password = request.POST["password"]
+
+    pw_hash = bcrypt.hashpw(input_password.encode(), bcrypt.gensalt()).decode()
+    newUser = User(
+        first_name=request.POST['first_name'],
+        last_name=request.POST['last_name'],
+        username=request.POST['username'],
+        pw_hash=pw_hash,
+        email=request.POST['email']
+    )
+    newUser.save()
+    print("This is our user ****************", newUser)
+    request.session['user_id'] = newUser.id
+    return redirect('/success')
 
 
-# def register(request):
-#     errors = User.objects.validate(request.POST)
-
-#     if len(errors) > 0:
-#         for key, value in errors.items():
-#             messages.error(request, value, extra_tags=key)
-#         return render(request, 'login.html')
-
-#     input_password = request.POST["password"]
-
-#     pw_hash = bcrypt.hashpw(input_password.encode(), bcrypt.gensalt()).decode()
-#     newUser = User(
-#         first_name=request.POST['first_name'],
-#         last_name=request.POST['last_name'],
-#         pw_hash=pw_hash,
-#         email=request.POST['email']
-#     )
-#     newUser.save()
-#     print("This is our user ****************", newUser)
-#     request.session['user_id'] = newUser.id
-#     return redirect('/success')
+def log_in(request):
+    userList = User.objects.filter(email=request.POST['your_email'])
+    if userList:
+        user = userList[0]
+        if bcrypt.checkpw(request.POST['pw'].encode(), user.pw_hash.encode()):
+            request.session['user_id'] = user.id
+            request.session['name'] = user.first_name
+            return redirect('/success')
+    messages.error(request, "Incorrect login.")
+    return redirect('/login')
 
 
-# def log_in(request):
-#     userList = User.objects.filter(email=request.POST['your_email'])
-#     if userList:
-#         user = userList[0]
-#         if bcrypt.checkpw(request.POST['pw'].encode(), user.pw_hash.encode()):
-#             request.session['user_id'] = user.id
-#             request.session['name'] = user.first_name
-#             return redirect('/success')
-#     messages.error(request, "Incorrect login.")
-#     return redirect('/')
+def log_out(request):
+    request.session.clear()
+    return redirect('/')
 
 
-# def log_out(request):
-#     request.session.clear()
-#     return redirect('/')
+def success(request):
+    if "user_id" not in request.session:
+        messages.error(request, "Please log in.")
+        return redirect('/login')
+    return redirect('/')
 
 
-# def success(request):
-#     if "user_id" not in request.session:
-#         messages.error(request, "Please log in.")
-#         return redirect('/')
-#     return redirect('/dashboard')
-
-
-# ----------Customers Info---------------
+# ----------Site Info---------------
 
 def about(request):
-    return render(request, 'about.html')
+    context = checkCustomer(request)
+    return render(request, 'about.html', context)
 
 def classes(request):
-    return render(request, 'classes.html')
+    context = checkCustomer(request)
+    return render(request, 'classes.html', context)
 
 def contact(request):
-    return render(request, 'contact.html')
+    context = checkCustomer(request)
+    return render(request, 'contact.html', context)
 
 def garden(request):
-    return render(request, 'garden.html')
+    context = checkCustomer(request)
+    return render(request, 'garden.html', context)
 
 def partner(request):
-    return render(request, 'partner.html')
+    context = checkCustomer(request)
+    return render(request, 'partner.html', context)
 
 def recipe(request):
-    return render(request, 'recipe.html')
+    context = checkCustomer(request)
+    return render(request, 'recipe.html', context)
 
 def rotation(request):
-    return render(request, 'rotation.html')
+    context = checkCustomer(request)
+    return render(request, 'rotation.html', context)
 
 #-----------Product Search---------------
 
 def bulk(request):
-    return render(request, 'bulk.html')
+    customer = checkCustomer(request)
+
+    products = Product.objects.all()
+    bulk_list = Product.objects.filter(category="bulk")
+
+    context = {
+        'user': customer,
+        'all_products': bulk_list,
+    }
+
+    return render(request, 'bulk.html', context)
 
 def deals(request):
-    return render(request, 'deals.html')
+    customer = checkCustomer(request)
+
+    products = Product.objects.all()
+    deals_list = Product.objects.filter(category="deals")
+
+    context = {
+        'user': customer,
+        'all_products': deals_list,
+    }
+
+    return render(request, 'deals.html', context)
 
 def flowers(request):
-    return render(request, 'flowers.html')
+    customer = checkCustomer(request)
+
+    products = Product.objects.all()
+    flowers_list = Product.objects.filter(category="flowers")
+
+    context = {
+        'user': customer,
+        'all_products': flowers_list,
+    }
+
+    return render(request, 'flowers.html', context)
 
 def produce(request):
-    return render(request, 'produce.html')
+    customer = checkCustomer(request)
+
+    products = Product.objects.all()
+    produce_list = Product.objects.filter(category="produce")
+
+    context = {
+        'user': customer,
+        'all_products': produce_list,
+    }
+
+    return render(request, 'produce.html', context)
 
 def specialty(request):
-    return render(request, 'specialty.html')
+    customer = checkCustomer(request)
 
-def subscriptions(request):
-    return render(request, 'subscriptions.html')
+    products = Product.objects.all()
+    specialty_list = Product.objects.filter(category="specialty")
+
+    context = {
+        'user': customer,
+        'all_products': specialty_list,
+    }
+
+    return render(request, 'specialty.html', context)
+
+def subscription(request):
+    customer = checkCustomer(request)
+
+    products = Product.objects.all()
+    subscriptions_list = Product.objects.filter(category="subscription")
+
+    context = {
+        'user': customer,
+        'all_products': subscriptions_list,
+    }
+
+    return render(request, 'subscriptions.html', context)
+
+def productDetails(request):
+    context = checkCustomer(request)
+    return render(request, 'productDetails.html', context)
 
 #------------Purchase Info-------------
 
-def productDetails(request):
-    return render(request, 'productDetails.html')
-
 def cart(request):
-    return render(request, 'cart.html')
+    context = checkCustomer(request)
+    return render(request, 'cart.html', context)
+
+def checkout(request):
+    context = checkCustomer(request)
+    return render(request, 'checkout.html', context)
+
+def paymentFailure(request):
+    context = checkCustomer(request)
+    return render(request, 'paymentFailure.html', context)
+
+def paymentSuccess(request):
+    context = checkCustomer(request)
+    return render(request, 'paymentSuccess.html', context)
+
+def orderHistory(request):
+    context = checkCustomer(request)
+    return render(request, 'orderHistory.html', context)
 
 
 
@@ -177,20 +282,16 @@ def createProduct(request):
 
 
 def showProduct(request, product_id):
-    if "user_id" not in request.session:
-        messages.error(request, "Please log in.")
-        return redirect('/')
+    customer = checkCustomer(request)
 
-    user_id = request.session['user_id']
-    user = User.objects.get(id=user_id)
     product = Product.objects.filter(id=product_id)
 
     context = {
-        'user': user,
-        'this_product': product[0]
+        'user': customer,
+        'this_product': product[0],
     }
 
-    return render(request, 'viewProduct.html', context)
+    return render(request, 'productDetails.html', context)
 
 
 def editProduct(request, product_id):

@@ -47,8 +47,29 @@ class User(models.Model):
     objects = UserManager()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    # orders
+
+class Admin(User):
+    admin_access = models.BooleanField(default=True)
     # products
 
+class Developer(Admin):
+    dev_access = models.BooleanField(default=True)
+
+class OrderManager(models.Manager):
+    def validate_order(self, post_data):
+        errors = {}
+        # till need to add validations
+        return errors
+
+class Order(models.Model):
+    order_date = models.DateField(auto_now=False, auto_now_add=False)
+    amount = models.DecimalField(max_digits=9, decimal_places=2)
+    purchaser = models.ForeignKey(
+        User, related_name="orders", on_delete=models.CASCADE)
+    objects = OrderManager()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ProductManager(models.Manager):
     def validate_job(self, post_data):
@@ -79,10 +100,10 @@ class Product(models.Model):
     desc = models.TextField(max_length=255)
     category = models.CharField(max_length=255)
     image = models.ImageField(upload_to='products', blank=True)
-    inventory_count = models.IntegerField()
+    inventory_count = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=9, decimal_places=2)
-    user = models.ForeignKey(
-        User, related_name="created_products", on_delete=models.CASCADE)
+    product_creator = models.ForeignKey(
+        Admin, related_name="created_products", on_delete=models.CASCADE)
     objects = ProductManager()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

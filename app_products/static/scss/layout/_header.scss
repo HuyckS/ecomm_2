@@ -3,6 +3,10 @@
   width: 100%;
   height: 20%;
 
+  &__top {
+    display: inline-block;
+    justify-content: space-between;
+  }
   // &__home-link {
   //   text-decoration: none;
   //   transition: all 0.3s;

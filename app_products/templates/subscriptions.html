@@ -10,6 +10,28 @@
   </head>
   <body>
     <header class="header">
+      <div class="header__top">
+        <div>
+          <a href="/" class="navigation__link">
+            <img src="#" alt="Logo" class="navigation__logo" />
+          </a>
+        </div>
+        <div>
+          {% if customer == 'customer' %}
+          <a href="/signIn" class="navigation__link">
+            <button class="btn-login">Login/Register</button>
+          </a>
+          {% else %}
+          <button class="btn-login">Log out</button>
+          <a class="cart" href="/cart">
+            <h5 class="heading-cart">
+              <i class="fas fa-shopping-cart"></i>
+            </h5>
+            <h5 class="heading-cart">cart ({{count}})</h5>
+          </a>
+          {% endif %}
+        </div>
+      </div>
       <div class="navigation_box">
         <div class="navigation">
           <nav class="navigation__nav">
@@ -43,97 +65,43 @@
     </header>
     <main>
       <section class="section-search">
-        <div class="search-box"></div>
+        <div class="row">
+          <div class="search-box">
+            <input
+              type="text"
+              class="search-box__input"
+              placeholder="Search"
+              aria-label=""
+              aria-describedby="basic-addon1"
+            />
+            <div class="search-box__btn">
+              <button class="btn-green" type="button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
       </section>
       <section class="section-products">
         <!-- For each product in this category; display -->
-        <!-- Hard code for now -->
         <div class="row">
-          <div class="col-1-of-3">
-            <div class="product-box">
-              <img src="#" alt="product" />
-              <h3 class="heading-tertiary">Product 1</h3>
-              <h4 class="heading-price">$5.00</h4>
-              <button class="btn-view">Details</button> |
-              <button class="btn-add">Add to Cart</button>
+          {% for product in all_products %}
+
+          <div class="product-row">
+            <div class="col-1-of-3">
+              <div class="product-box">
+                <img src="#" alt="product" />
+                <h3 class="heading-tertiary">{{product.name}}</h3>
+                <h4 class="heading-price">{{product.price}}</h4>
+                <button class="btn-view">
+                  <a href="/products/{{product.id}}">Details</a>
+                </button>
+                |
+                <button class="btn-add">Add to Cart</button>
+              </div>
             </div>
           </div>
-          <div class="col-1-of-3">
-            <div class="product-box">
-              <img src="#" alt="product" />
-              <h3 class="heading-tertiary">Product 1</h3>
-              <h4 class="heading-price">$5.00</h4>
-              <button class="btn-view">Details</button> |
-              <button class="btn-add">Add to Cart</button>
-            </div>
-          </div>
-          <div class="col-1-of-3">
-            <div class="product-box">
-              <img src="#" alt="product" />
-              <h3 class="heading-tertiary">Product 1</h3>
-              <h4 class="heading-price">$5.00</h4>
-              <button class="btn-view">Details</button> |
-              <button class="btn-add">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-1-of-3">
-            <div class="product-box">
-              <img src="#" alt="product" />
-              <h3 class="heading-tertiary">Product 1</h3>
-              <h4 class="heading-price">$5.00</h4>
-              <button class="btn-view">Details</button> |
-              <button class="btn-add">Add to Cart</button>
-            </div>
-          </div>
-          <div class="col-1-of-3">
-            <div class="product-box">
-              <img src="#" alt="product" />
-              <h3 class="heading-tertiary">Product 1</h3>
-              <h4 class="heading-price">$5.00</h4>
-              <button class="btn-view">Details</button> |
-              <button class="btn-add">Add to Cart</button>
-            </div>
-          </div>
-          <div class="col-1-of-3">
-            <div class="product-box">
-              <img src="#" alt="product" />
-              <h3 class="heading-tertiary">Product 1</h3>
-              <h4 class="heading-price">$5.00</h4>
-              <button class="btn-view">Details</button> |
-              <button class="btn-add">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-1-of-3">
-            <div class="product-box">
-              <img src="#" alt="product" />
-              <h3 class="heading-tertiary">Product 1</h3>
-              <h4 class="heading-price">$5.00</h4>
-              <button class="btn-view">Details</button> |
-              <button class="btn-add">Add to Cart</button>
-            </div>
-          </div>
-          <div class="col-1-of-3">
-            <div class="product-box">
-              <img src="#" alt="product" />
-              <h3 class="heading-tertiary">Product 1</h3>
-              <h4 class="heading-price">$5.00</h4>
-              <button class="btn-view">Details</button> |
-              <button class="btn-add">Add to Cart</button>
-            </div>
-          </div>
-          <div class="col-1-of-3">
-            <div class="product-box">
-              <img src="#" alt="product" />
-              <h3 class="heading-tertiary">Product 1</h3>
-              <h4 class="heading-price">$5.00</h4>
-              <button class="btn-view">Details</button> |
-              <button class="btn-add">Add to Cart</button>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </section>
     </main>

@@ -10,35 +10,51 @@
   </head>
   <body>
     <header class="header">
+      <div class="header__top">
+        <a href="/" class="navigation__link">
+          <img src="#" alt="Logo" class="navigation__logo" />
+        </a>
+        {% if customer == 'customer' %}
+        <a href="/signIn" class="navigation__link">
+          <button class="btn-login">Login/Register</button>
+        </a>
+        {% else %}
+        <a class="cart" href="/cart">
+          <h5 class="heading-cart">
+            <i class="fas fa-shopping-cart"></i>
+          </h5>
+          <h5 class="heading-cart">cart ({{count}})</h5>
+        </a>
+        {% endif %}
+      </div>
       <div class="navigation">
-        <div class="navigation">
-          <nav class="navigation__nav">
-            <ul class="navigation__list">
-              <li class="navigation__item">
-                <a href="/about" class="navigation__link">About</a>
-              </li>
-              <li class="navigation__item">
-                <a href="/produce" class="navigation__link">Produce</a>
-              </li>
-              <li class="navigation__item">
-                <a href="/flowers" class="navigation__link">Flowers</a>
-              </li>
-              <li class="navigation__item">
-                <a href="/specialty" class="navigation__link">Specialty Items</a>
-              </li>
-              <li class="navigation__item">
-                <a href="/bulk" class="navigation__link">Bulk Orders</a>
-              </li>
-              <li class="navigation__item">
-                <a href="/subscriptions" class="navigation__link"
-                  >Subscriptions</a
-                >
-              </li>
-              <li class="navigation__item">
-                <a href="/contact" class="navigation__link">Contact</a>
-              </li>
-            </ul>
-          </nav>
+        <nav class="navigation__nav">
+          <ul class="navigation__list">
+            <li class="navigation__item">
+              <a href="/about" class="navigation__link">About</a>
+            </li>
+            <li class="navigation__item">
+              <a href="/produce" class="navigation__link">Produce</a>
+            </li>
+            <li class="navigation__item">
+              <a href="/flowers" class="navigation__link">Flowers</a>
+            </li>
+            <li class="navigation__item">
+              <a href="/specialty" class="navigation__link">Specialty Items</a>
+            </li>
+            <li class="navigation__item">
+              <a href="/bulk" class="navigation__link">Bulk Orders</a>
+            </li>
+            <li class="navigation__item">
+              <a href="/subscriptions" class="navigation__link"
+                >Subscriptions</a
+              >
+            </li>
+            <li class="navigation__item">
+              <a href="/contact" class="navigation__link">Contact</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </header>
     <main>
