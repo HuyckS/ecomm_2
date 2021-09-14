@@ -67,11 +67,18 @@
                 <img src="#" alt="product" />
               </div>
               <div class="details-box__right">
+                <h1>{{customer}}</h1>
                 <h1 class="heading-product">{{this_product.name}}</h1>
                 <h3 class="product__price">{{this_product.price}}</h3>          
                 <p class="product__text">{{this_product.desc}}</p>
-                <form action="/add-to-cart" class="purchase">
+                <form action="/add-to-cart" method="post" class="purchase">
                   {% csrf_token %}
+                  <div class="form-row">
+                    <input type="hidden" name="itemToAdd" value={{this_product.name}}>
+                  </div>
+                  <div class="form-row">
+                    <input type="hidden" name="price" value="{{this_product.price}}">
+                  </div>
                   <div class="form-row">
                     <label for="quantity">Quantity:</label>
                     <input type="number" name="quantity" id="quantity" min="0" max="5"/>

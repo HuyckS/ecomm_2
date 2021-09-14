@@ -107,3 +107,18 @@ class Product(models.Model):
     objects = ProductManager()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+class CartItemManager(models.Manager):
+    def validate_order(self, post_data):
+        errors = {}
+        # till need to add validations
+        return errors
+
+class CartItem(models.Model):
+    user_id = models.PositiveIntegerField()
+    product = models.CharField(max_length=255)
+    quantity = models.DecimalField(max_digits=9, decimal_places=2)
+    total = models.DecimalField(max_digits=9, decimal_places=2)
+    objects = CartItemManager()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

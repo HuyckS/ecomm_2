@@ -1,21 +1,33 @@
+from django.http.response import JsonResponse
 from django.shortcuts import render, redirect, HttpResponse
 from .models import *
 from django.contrib import messages
 import bcrypt
+import stripe
+from django.conf import settings
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 #--------Helper Functions------
 
 def checkCustomer(request):
     if "user_id" not in request.session:
-        customer = 0
+        customer_id = 0
         customer_name = 'customer'
     else:
-        id_num = request.session["user_id"]
-        customer = User.objects.get(id=id_num)
-        customer_name = customer.first_name
+        customer_id = request.session["user_id"]
+        customer_logged = User.objects.get(id=customer_id)
+        customer_name = customer_logged.first_name
+    cart_items = CartItem.objects.filter(user_id=customer_id)
+    total = 0;
+    for item in cart_items:
+            if item.user_id == customer_id:
+                total = total + item.total
     context = {
-        'user_id' : customer,
+        'customer_id' : customer_id,
         'customer': customer_name,
+        'cart_items': cart_items,
+        'total': total,
     }
     return context
 
@@ -189,6 +201,11 @@ def subscription(request):
 
 def productDetails(request):
     context = checkCustomer(request)
+    print(context)
+    context.update({
+        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY,
+    })
+
     return render(request, 'productDetails.html', context)
 
 #------------Purchase Info-------------
@@ -213,12 +230,47 @@ def orderHistory(request):
     context = checkCustomer(request)
     return render(request, 'orderHistory.html', context)
 
+def add_to_cart(request):
+    context = checkCustomer(request)
+
+    add_user_id = request.session['user_id']
+    add_item = request.POST['itemToAdd']
+    add_quantity = float(request.POST['quantity'])
+    add_price = float(request.POST['price']) * add_quantity
+
+    newCartItem = CartItem.objects.create(
+        user_id=add_user_id,
+        product=add_item,
+        quantity=add_quantity,
+        total=add_price,
+    )
+
+    newCartItem.save()
+
+    return redirect('/cart')
 
 
 
-
-
-
+def create_checkout_session(request, *args, **kwargs):
+        checkout_session = stripe.checkout.Session.create(
+            line_items=[
+                {
+                    'currency': 'usd',
+                    'price': price,
+                    'quantity': quantity,
+                    'product_name': product.name
+                },
+            ],
+            payment_method_types=[
+                'card',
+            ],
+            mode='payment',
+            success_url= 'payment/success',
+            cancel_url='payment/failure',
+        )
+        return JsonResponse({
+            'id': checkout_session.id
+        })
 
 # ------------Products------------------
 

@@ -36,8 +36,9 @@ urlpatterns = [
     path('products/remove/<int:product_id>', views.removeProduct),
 
     # Payment routes
-    path('api/checkout-session/<int:id>', views.createCheckoutSession),
+    path('add-to-cart', views.add_to_cart),
+    path('create-checkout-session/', views.create_checkout_session),
     path('payment/success', views.paymentSuccess),
     path('payment/failure', views.paymentFailure),
-    path('history', views.views.orderHistory),
+    path('history', views.orderHistory),
 ]
