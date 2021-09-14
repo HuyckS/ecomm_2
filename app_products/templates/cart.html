@@ -71,12 +71,17 @@
                 Quantity: {{cart_item.quantity}}
               </p>
               <p class="cart-item__total">Items Total: {{cart_item.total}}</p>
+              <button class="cart-item_remove">
+                <a href="/remove/item/{{cart_item.id}}">Remove</a>
+              </button>
             </div>
           </div>
           {% endfor %}
-          <h3 class="cart_total">{{cart_total}}</h3>
+          <h3 class="cart_total">{{total}}</h3>
         </div>
-        <form action="/create-checkout-session" method="POST">
+        <form action="/checkout-session/create" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="user_id" value="{{customer_id}}" />
           <button type="submit" id="checkout-button">Checkout</button>
         </form>
       </section>

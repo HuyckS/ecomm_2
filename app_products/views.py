@@ -249,28 +249,35 @@ def add_to_cart(request):
 
     return redirect('/cart')
 
+def removeFromCart(request, item_id):
+
+    deleted_product = CartItem.objects.get(id=item_id).delete()
+
+    return redirect('/cart')
 
 
-def create_checkout_session(request, *args, **kwargs):
+def create_checkout_session(request):
+        user = int(request.POST['user_id'])
+        items = CartItem.objects.filter(user_id=user)
+        amount = 0
+        for item in items:
+            amount = amount + int(item.quantity)
+
         checkout_session = stripe.checkout.Session.create(
             line_items=[
                 {
-                    'currency': 'usd',
-                    'price': price,
-                    'quantity': quantity,
-                    'product_name': product.name
+                    'price': 'price_1JZjPIIDb1tCitGQhKLhO1s4',
+                    'quantity': amount,
                 },
             ],
             payment_method_types=[
                 'card',
             ],
             mode='payment',
-            success_url= 'payment/success',
-            cancel_url='payment/failure',
+            success_url= 'http://localhost:8000/payment/success',
+            cancel_url='http://localhost:8000/payment/failure',
         )
-        return JsonResponse({
-            'id': checkout_session.id
-        })
+        return redirect(checkout_session.url, code=303)
 
 # ------------Products------------------
 
