@@ -11,24 +11,33 @@
   </head>
   <body>
     <header class="header">
-      <div class="header__top">
-        <a href="/" class="navigation__link">
-          <img src="#" alt="Logo" class="navigation__logo" />
-        </a>
-        {% if customer == 'customer' %}
-        <a href="/signIn" class="navigation__link">
-          <button class="btn-login">Login/Register</button>
-        </a>
-        {% else %}
-        <a class="cart" href="/cart">
-          <h5 class="heading-cart">
-            <i class="fas fa-shopping-cart"></i>
-          </h5>
-          <h5 class="heading-cart">cart ({{count}})</h5>
-        </a>
-        {% endif %}
-      </div>
       <div class="navigation">
+        <div class="header__top">
+          <div class="header__top--left">
+            <a href="/" class="navigation__link-1">
+              <img
+                src="static/images/logo_1.png"
+                alt="Logo"
+                class="navigation__logo"
+              />
+              <h3 class="navigation__logo-text">Hydroponic Farm</h3>
+            </a>
+          </div>
+          <div class="header__top--right">
+            {% if customer == 'customer' %}
+            <a href="/signIn" class="navigation__link">
+              <button class="btn-login">Login/Register</button>
+            </a>
+            {% else %}
+            <a class="cart" href="/cart">
+              <h5 class="heading-cart">
+                <i class="fas fa-shopping-cart"></i>
+              </h5>
+              <h5 class="heading-cart">cart ({{count}})</h5>
+            </a>
+            {% endif %}
+          </div>
+        </div>
         <nav class="navigation__nav">
           <ul class="navigation__list">
             <li class="navigation__item">

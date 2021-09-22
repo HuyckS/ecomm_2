@@ -37,6 +37,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'app_products',
     'django_sass',
+    "bootstrap4",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

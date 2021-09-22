@@ -1,0 +1,14 @@
+.promotions-box {
+  display: inline-flex;
+  justify-content: space-between;
+  padding: 2rem;
+  margin: 2rem 0rem;
+  color: $color-grey-dark-3;
+
+  &__left {
+    text-align: left;
+  }
+  &__right {
+    text-align: right;
+  }
+}
