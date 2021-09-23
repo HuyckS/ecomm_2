@@ -14,5 +14,14 @@
   border-radius: 5px;
 }
 .section-details {
-  margin: 5rem 0rem;
+  width: 100%;
+  margin-top: 5rem;
+  border-radius: 5px 5px 0px 0px;
+  padding: 1.5rem 0rem;
+  background-image: linear-gradient(
+    to bottom,
+    $color-primary-dark,
+    $color-grey-dark-3
+  );
+  color: transparent;
 }

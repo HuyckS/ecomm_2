@@ -26,6 +26,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # STRIPE KEYS
 STRIPE_PUBLISHABLE_KEY = str(os.getenv('test_publishable_key'))
 STRIPE_SECRET_KEY = str(os.getenv('test_secret_key'))
+GOOGLE_API_KEY = str(os.getenv('GOOGLE_API_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

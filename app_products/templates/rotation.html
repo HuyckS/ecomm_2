@@ -9,63 +9,7 @@
     <link rel="stylesheet" href="static/style.css" />
   </head>
   <body>
-    <header class="header">
-      <div class="navigation">
-        <div class="header__top">
-          <div class="header__top--left">
-            <a href="/" class="navigation__link-1">
-              <img
-                src="static/images/logo_1.png"
-                alt="Logo"
-                class="navigation__logo"
-              />
-              <h3 class="navigation__logo-text">Hydroponic Farm</h3>
-            </a>
-          </div>
-          <div class="header__top--right">
-            {% if customer == 'customer' %}
-            <a href="/signIn" class="navigation__link">
-              <button class="btn-login">Login/Register</button>
-            </a>
-            {% else %}
-            <a class="cart" href="/cart">
-              <h5 class="heading-cart">
-                <i class="fas fa-shopping-cart"></i>
-              </h5>
-              <h5 class="heading-cart">cart ({{count}})</h5>
-            </a>
-            {% endif %}
-          </div>
-        </div>
-        <nav class="navigation__nav">
-          <ul class="navigation__list">
-            <li class="navigation__item">
-              <a href="/about" class="navigation__link">About</a>
-            </li>
-            <li class="navigation__item">
-              <a href="/produce" class="navigation__link">Produce</a>
-            </li>
-            <li class="navigation__item">
-              <a href="/flowers" class="navigation__link">Flowers</a>
-            </li>
-            <li class="navigation__item">
-              <a href="/specialty" class="navigation__link">Specialty Items</a>
-            </li>
-            <li class="navigation__item">
-              <a href="/bulk" class="navigation__link">Bulk Orders</a>
-            </li>
-            <li class="navigation__item">
-              <a href="/subscriptions" class="navigation__link"
-                >Subscriptions</a
-              >
-            </li>
-            <li class="navigation__item">
-              <a href="/contact" class="navigation__link">Contact</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    {% include '_header_partial.html' %}
     <main>
       <section class="section-about">
         <div class="row">
@@ -86,39 +30,6 @@
         </div>
       </section>
     </main>
-    <footer class="footer">
-      <div class="footer__logo-box">
-        <img src="#" alt="Full logo" class="footer__logo" />
-      </div>
-      <div class="row">
-        <div class="col-1-of-2">
-          <div class="footer__navigation">
-            <ul class="footer__list">
-              <li class="footer__item">
-                <a href="#" class="footer__link">Company</a>
-              </li>
-              <li class="footer__item">
-                <a href="#" class="footer__link">Contact us</a>
-              </li>
-              <li class="footer__item">
-                <a href="#" class="footer__link">Careers</a>
-              </li>
-              <li class="footer__item">
-                <a href="#" class="footer__link">Privacy Policy</a>
-              </li>
-              <li class="footer__item">
-                <a href="#" class="footer__link">Terms</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-1-of-2">
-          <p class="footer__copyright">
-            Design by <a href="#" class="footer__link">Spencer Huyck</a> using
-            Django/Python/SQLite. Copyright &copy; by Spencer Huyck.
-          </p>
-        </div>
-      </div>
-    </footer>
+    {% include '_footer_partial.html'%}
   </body>
 </html>

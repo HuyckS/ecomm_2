@@ -7,6 +7,7 @@ import stripe
 from django.conf import settings
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+google_api_key = settings.GOOGLE_API_KEY
 
 #--------Helper Functions------
 
@@ -36,6 +37,7 @@ def checkCustomer(request):
 
 def index(request):
     context = checkCustomer(request)
+    context.update(key=google_api_key)
     return render(request, 'index.html', context)
 
 def signIn(request):

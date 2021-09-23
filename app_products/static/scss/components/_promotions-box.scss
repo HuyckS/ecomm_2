@@ -1,9 +1,25 @@
 .promotions-box {
   display: inline-flex;
   justify-content: space-between;
-  padding: 2rem;
-  margin: 2rem 0rem;
+  font-size: 2rem;
+  font-weight: 300;
+  padding: 1rem 2rem;
+  transition: all 0.4s;
   color: $color-grey-dark-3;
+
+  h2 {
+    font-size: 3rem;
+    text-decoration: underline;
+  }
+
+  &:hover,
+  &:active {
+    transform: scale(1.1);
+    background-color: $color-primary-light;
+    h2 {
+      color: $color-black;
+    }
+  }
 
   &__left {
     text-align: left;

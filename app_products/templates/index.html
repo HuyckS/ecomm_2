@@ -14,95 +14,16 @@
     <link rel="stylesheet" href="static/style.css" />
   </head>
   <body>
-    <header class="header">
-      <div class="navigation">
-        <div class="header__top">
-          <div class="header__top--left">
-            <a href="/" class="navigation__link-1">
-              <img
-                src="static/images/logo_1.png"
-                alt="Logo"
-                class="navigation__logo"
-              />
-              <div class="navigation__logo-title">
-                <h3 class="navigation__logo-text">The</h3>
-                <h3 class="navigation__logo-text">Hydroponic</h3>
-                <h3 class="navigation__logo-text">Farm</h3>
-              </div>
-            </a>
-          </div>
-          <div class="header__top--right">
-            <div class="row">
-              <h1 class="welcome">Welcome, {{customer}}!</h1>
-            </div>
-            {% if customer == 'customer' %}
-            <a href="/signIn" class="navigation__link">
-              <button class="btn-login">Login/Register</button>
-            </a>
-            {% else %}
-            <a class="cart" href="/cart">
-              <h5 class="heading-cart">
-                <i class="fas fa-shopping-cart"></i>
-              </h5>
-              <h5 class="heading-cart">cart ({{count}})</h5>
-            </a>
-            {% endif %}
-          </div>
-        </div>
-        <nav class="navigation__nav">
-          <ul class="navigation__list">
-            <li class="navigation__item">
-              <a href="/about" class="navigation__link">About</a>
-            </li>
-            <li class="navigation__item">
-              <a href="/produce" class="navigation__link">Produce</a>
-            </li>
-            <li class="navigation__item">
-              <a href="/flowers" class="navigation__link">Flowers</a>
-            </li>
-            <li class="navigation__item">
-              <a href="/specialty" class="navigation__link">Specialty Items</a>
-            </li>
-            <li class="navigation__item">
-              <a href="/bulk" class="navigation__link">Bulk Orders</a>
-            </li>
-            <li class="navigation__item">
-              <a href="/subscriptions" class="navigation__link"
-                >Subscriptions</a
-              >
-            </li>
-            <li class="navigation__item">
-              <a href="/contact" class="navigation__link">Contact</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    {% include '_header_partial.html' %}
     <main>
       <section class="section-search">
-        <div class="row">
-          <div class="search-box">
-            <input
-              type="text"
-              class="search-box__input"
-              placeholder="Search"
-              aria-label=""
-              aria-describedby="basic-addon1"
-              size="100"
-            />
-            <div class="search-box__btn">
-              <button class="btn-green" type="button">Search</button>
-            </div>
-          </div>
-        </div>
+        {% include '_search_partial.html' %}
       </section>
       <section class="section-banner">
         <div
           id="carouselExampleIndicators"
           class="carousel slide"
           data-ride="carousel"
-          width="640px"
-          height="360px"
         >
           <ol class="carousel-indicators">
             <li
@@ -120,8 +41,8 @@
                 class="d-block w-100"
                 src="static/images/banner_2.jpg"
                 alt="First slide"
-                width="640px"
-                height="360px"
+                width="210px"
+                height="530px"
               />
             </div>
             <div class="carousel-item">
@@ -130,7 +51,7 @@
                 src="static/images/banner_1.jpg"
                 alt="Second slide"
                 width="640px"
-                height="360px"
+                height="460px"
               />
             </div>
             <div class="carousel-item">
@@ -139,7 +60,7 @@
                 src="static/images/banner_3.jpg"
                 alt="Third slide"
                 width="640px"
-                height="360px"
+                height="460px"
               />
             </div>
             <div class="carousel-item">
@@ -148,7 +69,7 @@
                 src="static/images/banner_4.jpg"
                 alt="Fourth slide"
                 width="640px"
-                height="360px"
+                height="460px"
               />
             </div>
           </div>
@@ -176,7 +97,12 @@
         <div class="row">
           <div class="col-1-of-4">
             <div class="quicklinks-box">
-              <img src="#" alt="product on sale" />
+              <img
+                src="static/images/deals.jpg"
+                alt="product on sale"
+                height="150px"
+                width="150px"
+              />
               <h2 class="heading-secondary">Today's Deals</h2>
               <p class="quicklinks__text">
                 Checkout our amazing deals happening today!
@@ -188,7 +114,12 @@
           </div>
           <div class="col-1-of-4">
             <div class="quicklinks-box">
-              <img src="#" alt="product on sale" />
+              <img
+                src="static/images/subscription_box.jpg"
+                alt="product on sale"
+                height="150px"
+                width="150px"
+              />
               <h2 class="heading-secondary">New Subscriptions Available</h2>
               <p class="quicklinks__text">
                 Subscribe to receive weekly subscription boxes for the freshest
@@ -201,7 +132,12 @@
           </div>
           <div class="col-1-of-4">
             <div class="quicklinks-box">
-              <img src="#" alt="product on sale" />
+              <img
+                src="static/images/seasonal.jpg"
+                alt="product on sale"
+                height="150px"
+                width="150px"
+              />
               <h2 class="heading-secondary">Seasonal Rotation</h2>
               <p class="quicklinks__text">
                 Review our current inventory and when items will be stocked
@@ -214,7 +150,12 @@
           </div>
           <div class="col-1-of-4">
             <div class="quicklinks-box">
-              <img src="#" alt="product on sale" />
+              <img
+                src="static/images/recipe.jpg"
+                alt="product on sale"
+                height="150px"
+                width="150px"
+              />
               <h2 class="heading-secondary">Recipe of the Week</h2>
               <p class="quicklinks__text">
                 Put those fresh ingredients to use with this amazing new recipe
@@ -231,9 +172,14 @@
         <div class="row">
           <div class="promotions-box">
             <div class="promotions-box__left col-1-of-3">
-              <img src="#" alt="product on sale" />
+              <img
+                src="static/images/classes.jpg"
+                alt="product on sale"
+                height="400px"
+                width="600px"
+              />
             </div>
-            <div class="promotions-box__right col-2-of-3">
+            <div class="promotions-box__right col-1-of-3">
               <h2 class="heading-secondary">Hydroponic Classes</h2>
               <p class="promotions__text">
                 Put those fresh ingredients to use with this amazing new recipe
@@ -247,7 +193,7 @@
         </div>
         <div class="row">
           <div class="promotions-box">
-            <div class="promotions-box__left col-2-of-3">
+            <div class="promotions-box__left col-1-of-3">
               <h2 class="heading-secondary">Partner with Us</h2>
               <p class="promotions__text">
                 Put those fresh ingredients to use with this amazing new recipe
@@ -257,17 +203,27 @@
                 <a href="" class="promotions__link">View</a>
               </button>
             </div>
-            <div class="promotions-box__right col-1-of-3">
-              <img src="#" alt="product on sale" />
+            <div class="promotions-box__right col-2-of-3">
+              <img
+                src="static/images/partnership.jpg"
+                alt="product on sale"
+                height="400px"
+                width="600px"
+              />
             </div>
           </div>
         </div>
         <div class="row">
           <div class="promotions-box">
             <div class="promotions-box__left col-1-of-3">
-              <img src="#" alt="product on sale" />
+              <img
+                src="static/images/community.jpg"
+                alt="product on sale"
+                height="400px"
+                width="600px"
+              />
             </div>
-            <div class="promotions-box__right col-2-of-3">
+            <div class="promotions-box__right col-1-of-3">
               <h2 class="heading-secondary">Community Garden</h2>
               <p class="promotions__text">
                 Put those fresh ingredients to use with this amazing new recipe
@@ -283,54 +239,27 @@
       <section class="section-details">
         <div class="row">
           <div class="col-1-of-2">
-            <div class="details-box">Map</div>
-          </div>
-          <div class="col-1-of-2">
             <div class="details-box">
               <h2 class="heading-secondary">Location and Hours</h2>
               <p class="details__text">Hours: 9am - 5pm Monday - Saturday</p>
             </div>
           </div>
+          <div class="col-1-of-2">
+            <div class="details-image">
+              <iframe
+                width="650"
+                height="450"
+                frameborder="0"
+                style="border: 0"
+                src="https://www.google.com/maps/embed/v1/place?key={{key}}&q=Washington+Park+Arboretum+UW+Botanic+Gardens,Seattle+Washington"
+                allowfullscreen
+              >
+              </iframe>
+            </div>
+          </div>
         </div>
       </section>
     </main>
-    <footer class="footer">
-      <div class="footer__logo-box">
-        <img
-          src="static/images/logo_1.png"
-          alt="Full logo"
-          class="footer__logo"
-        />
-      </div>
-      <div class="row">
-        <div class="col-1-of-2">
-          <div class="footer__navigation">
-            <ul class="footer__list">
-              <li class="footer__item">
-                <a href="#" class="footer__link">Company</a>
-              </li>
-              <li class="footer__item">
-                <a href="#" class="footer__link">Contact us</a>
-              </li>
-              <li class="footer__item">
-                <a href="#" class="footer__link">Careers</a>
-              </li>
-              <li class="footer__item">
-                <a href="#" class="footer__link">Privacy Policy</a>
-              </li>
-              <li class="footer__item">
-                <a href="#" class="footer__link">Terms</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-1-of-2">
-          <p class="footer__copyright">
-            Design by <a href="#" class="footer__link">Spencer Huyck</a> using
-            Django/Python/SQLite. Copyright &copy; by Spencer Huyck.
-          </p>
-        </div>
-      </div>
-    </footer>
+    {% include '_footer_partial.html'%}
   </body>
 </html>
